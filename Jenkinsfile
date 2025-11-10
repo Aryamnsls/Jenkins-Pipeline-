@@ -1,23 +1,37 @@
-pipeline{
-	agent any 
-	stages{
-		stage('Build'){
-			steps{
-				echo 'Building the project...'
-				 sh 'mkdir -p build && echo "Build successful!" > build/result.txt'
+pipeline {
+    agent any
+
+    stages {
+        stage('Build') {
+            steps {
+                echo 'Hello Dosto!'
+                sh 'mkdir -p devops'
+                echo 'Mast Hoon!!'
             }
         }
+
         stage('Test') {
             steps {
                 echo 'Running tests...'
-                sh 'echo "All tests passed ✅"'
+                // You can add real test commands here
             }
         }
+
         stage('Deploy') {
             steps {
-                echo 'Deploying to Tomcat...'
-                sh 'echo "Deployment done!"'
+                echo 'Deploying application...'
+                // Add deployment steps later (like copying files or running a container)
             }
         }
     }
+
+    post {
+        success {
+            echo 'Pipeline executed successfully ✅'
+        }
+        failure {
+            echo 'Pipeline failed ❌'
+        }
+    }
 }
+
