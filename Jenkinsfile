@@ -4,35 +4,32 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                echo 'Hello Dosto!'
-                sh 'mkdir -p devops'
-                echo 'Mast Hoon!!'
+                echo 'Building application...'
+                sh 'mkdir -p devops/target && echo "Sample app built" > devops/target/myapp.war'
             }
         }
 
         stage('Test') {
             steps {
                 echo 'Running tests...'
-                // You can add real test commands here
             }
         }
 
         stage('Deploy') {
             steps {
-                echo 'Deploying application...'
-                // Add deployment steps later (like copying files or running a container)
+                echo 'Deploying WAR to Tomcat...'
+                sh 'sudo cp devops/target/*.war /var/lib/tomcat9/webapps/'
             }
         }
     }
 
     post {
         success {
-            echo 'Pipeline executed successfully ✅'
+            echo '✅ Deployment Successful!'
         }
         failure {
-            echo 'Pipeline failed ❌'
+            echo '❌ Deployment Failed!'
         }
     }
 }
 
-// webhook trigger test successful
